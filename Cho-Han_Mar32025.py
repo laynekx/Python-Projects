@@ -47,9 +47,7 @@ def Cho_Han():
         bet = bet_money(money)
         winnings = bet*2
         dice1, dice2 = dice_roll()
-        print(dice1, dice2)
         number = specific_number()
-        print(number)
         chohan = input("""The dealer swirls the cup and you hear the rattle of dice. The dealer slams the cup on the floor, still covering the dice and asks for your bet. CHO (even) or HAN (odd)?""").upper()
         print(f"The dealer lifts the cup to reveal:")
         time.sleep(1)
