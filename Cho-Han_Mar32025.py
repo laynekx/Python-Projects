@@ -29,10 +29,11 @@ def specific_number():
             print("Please answer with a 'y' or 'n'.")
         else:
             if choice.startswith("y"):
-                num = input("Pick your number/s.")
-                return int(num)
+                num = input("Pick your number/s.").split()
+                return num
             else:
                 return
+
 
 def Cho_Han():    
     JAPANESE_NUMBERS = {1: "ichi", 2: "ni", 3: "san", 4: "yon", 5: "go", 6: "roku"}
@@ -48,6 +49,7 @@ def Cho_Han():
         dice1, dice2 = dice_roll()
         print(dice1, dice2)
         number = specific_number()
+        print(number)
         chohan = input("""The dealer swirls the cup and you hear the rattle of dice. The dealer slams the cup on the floor, still covering the dice and asks for your bet. CHO (even) or HAN (odd)?""").upper()
         print(f"The dealer lifts the cup to reveal:")
         time.sleep(1)
@@ -60,12 +62,18 @@ def Cho_Han():
             print(f"You lost. ")
             money -= bet
         if number:
-            if number == dice1 or number == dice2:
-                print("You won an additional 40 mon for guessing the correct number in one of the dice.")
+            if  len(number) == 2 and ((number[0] == str(dice1) and number[1] == str(dice2)) or (number[0] == str(dice2) and number[1] == str(dice2))):
+                print("You won an additional 40 mon for guessing the correct number in both dice.")
+                money += 40
+            elif len(number) == 2 and (number[0] == str(dice1) or number[0] == str(dice2) or number[1] == str(dice1) or number[1] == str(dice2)):
+                print("You won an additional 20 mon for guessing the correct number in one dice.")
+                money += 20
+            elif len(number) == 1 and (number[0] == str(dice1) or number[0] == str(dice2)):
+                print("You won an additional 20 mon for guessing the correct number in one dice.")
                 money += 20
             else:
                 print("You lost 40 mon.")
-                money -= 20
+                money -= 40
         house_fee = bet // 10
         print(f"The house collects a {house_fee} mon fee.")
         money -= house_fee
